@@ -1,39 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\News;
 
 use App\Models\Categories;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 class NewsController extends Controller
 {
     public function __construct()
     {
-        // для middleware 'guest' исключить метод 'logout' данного контроллера
-//        $this->middleware('is_admin');
         $this->middleware('is_admin')->except(['index', 'show']);
     }
 
-    public function adminNews() {
-
-        $news = DB::table('news')->join('categories', 'news.category_id', '=', 'categories.id')
-            ->select('news.id as id', 'news.title as title', 'news.updated_at', 'categories.name as cat_name', 'categories.title as cat_title')
-            ->orderByDesc('updated_at')->paginate(9);
-
-        return view('admin.news', [
-            'news' => $news
-        ]);
-    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
 
         $news = DB::table('news')->join('categories', 'news.category_id', '=', 'categories.id')

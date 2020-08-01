@@ -11,21 +11,13 @@
 |
 */
 
+//main page
 Route::get('/', 'IndexController@index')->name('index');
-Route::resource('news', 'NewsController');
-Route::resource('category', 'CategoriesController');
+//news
+Route::resource('news', 'News\NewsController');
+//category
+Route::resource('category', 'Categories\CategoriesController');
 
-//admin
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-    'middleware' => ['auth', 'is_admin']
-//    'namespace' => 'Admin'
-], function () {
-    Route::get('/', 'Admin\IndexController@index')->name('index');
-    Route::get('/news', 'NewsController@adminNews')->name('news');
-    Route::resource('profiles', 'Admin\ProfilesController')->except('show', 'create', 'destroy', 'store');
-});
 
 // auth
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -34,6 +26,20 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-//Auth::routes();
+//admin
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => ['auth', 'is_admin'],
+    'namespace' => 'Admin'
+], function () {
+    Route::get('/', 'IndexController@index')->name('index');
+    Route::get('/news', 'NewsController@index')->name('news');
+    Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+//Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
