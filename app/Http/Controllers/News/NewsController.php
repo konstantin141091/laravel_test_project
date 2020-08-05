@@ -11,10 +11,10 @@ use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('is_admin')->except(['index', 'show']);
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('is_admin')->except(['index', 'show']);
+//    }
 
 
     /**
@@ -41,11 +41,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $categories = Categories::query()->get();
-
-        return view('news.create', [
-            'categories' => $categories
-        ]);
+        // заглушка для метода
+        abort('404', 'Page not found');
     }
 
     /**
@@ -54,17 +51,9 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $request->flash();
-        $this->validate($request, News::rules(), [], News::attributesName());
-        $data = $request->except('_token');
-
-        if (DB::table('news')->insert($data)) {
-            return back()->with('success', 'Новость успешно добавлена');
-        } else {
-            return back()->with('error', 'Не удалось добавить новость. Поробуйте еще раз');
-        }
+        abort('404', 'Action not found');
     }
 
     /**
@@ -89,16 +78,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
 
-        $news = DB::table('news')->find($id);
-        $categories = Categories::query()->get();
-
-        return view('news.edit', [
-            'news' => $news,
-            'categories' => $categories
-        ]);
+        abort('404', 'Page not found');
     }
 
     /**
@@ -108,18 +91,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update()
     {
-        $request->flash();
-        $this->validate($request, News::rules(), [], News::attributesName());
-
-        $news->fill($request->all());
-
-        if ($news->save()) {
-            return redirect()->route('admin.news')->with('success', 'Новость успешно обновлена');
-        }
-
-        return back()->with('error', 'Ошибка. Новость не обновлена');
+        abort('404', 'Page not found');
     }
 
     /**
@@ -130,11 +104,6 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-
-        if ($news->delete()) {
-            return redirect()->route('admin.news')->with('success', 'Новость успешно удалена');
-        }
-
-        return redirect()->route('admin.news')->with('error', 'Ошибка. Новость не удалена');
+        abort('404', 'Page not found');
     }
 }

@@ -59,18 +59,17 @@
                         <nav class="header__menu">
                             <ul class="ul flex padding-0">
                                 <li><a href="{{ route('index') }}" class="{{ request()->routeIs('index') ? 'active' : '' }}">Главная</a></li>
+                                @if(!is_null(Auth::user()))
+                                    @if(Auth::user()->is_admin)
+                                        <li><a href="{{ route('admin.index') }}" class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">Админка</a></li>
+                                    @endif
+                                @endif
                                 <li><a href="{{ route('news.index') }}" class="
                                     {{ request()->routeIs('news.index') ? 'active' : '' }}
                                     {{ request()->routeIs('news.show') ? 'active' : '' }}">Новости</a></li>
                                 <li><a href="{{ route('category.index') }}" class="
                                     {{ request()->routeIs('category.index') ? 'active' : '' }}
                                     {{ request()->routeIs('category.show') ? 'active' : '' }}">Категории</a></li>
-                               @if(!is_null(Auth::user()))
-                                    @if(Auth::user()->is_admin)
-                                        <li><a href="{{ route('admin.index') }}" class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">Админка</a></li>
-                                    @endif
-                                @endif
-
                             </ul>
                         </nav>
                     </div>

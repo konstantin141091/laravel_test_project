@@ -11,8 +11,8 @@
 
                             <span><a href="#">{{ $item->cat_title }}</a></span>
                             <div class="content__bottom__btn">
-                                <a href="/news/{{ $item->id }}/edit" class="btn btn-outline-success margin-bottom-15">Редактировать</a>
-                                <form action="/news/{{ $item->id }}" method="post">
+                                <a href="{{ route('admin.news.edit', $item->id) }}" class="btn btn-outline-success margin-bottom-15">Редактировать</a>
+                                <form action="{{ route('admin.news.destroy', $item->id) }}" method="post">
                                     @method('DELETE')
                                     @csrf
 
@@ -20,7 +20,7 @@
                                 </form>
 
                             </div>
-                            <h3><a href="{{ route('news.show', $item->id) }}">{{ $item->title }}</a></h3>
+                            <h3><a href="{{ route('admin.news.show', $item->id) }}">{{ $item->title }}</a></h3>
 
                         </div>
 

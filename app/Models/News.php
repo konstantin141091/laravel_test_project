@@ -15,10 +15,10 @@ class News extends Model
         return $this->belongsTo(Categories::class, 'category_id')->first();
     }
 
-    public static function rules() {
+    public static function rules($title) {
         $category = (new Categories())->getTable();
         return [
-            'title' => 'required|min:5|max:40',
+            'title' => 'required|min:5|max:40|unique:news,title,'.$title,
             'text' => 'required|min:10|max:4000',
             'category_id' => "required|exists:{$category},id"
         ];

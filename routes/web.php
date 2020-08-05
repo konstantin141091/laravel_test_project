@@ -14,10 +14,9 @@
 //main page
 Route::get('/', 'IndexController@index')->name('index');
 //news
-Route::resource('news', 'News\NewsController');
+Route::resource('news', 'News\NewsController')->only(['index', 'show']);
 //category
-Route::resource('category', 'Categories\CategoriesController');
-
+Route::resource('category', 'Categories\CategoriesController')->only(['index', 'show']);
 
 // auth
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -35,6 +34,7 @@ Route::group([
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
     Route::get('/news', 'NewsController@index')->name('news');
+    Route::resource('news', 'NewsController');
     Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
 });
 

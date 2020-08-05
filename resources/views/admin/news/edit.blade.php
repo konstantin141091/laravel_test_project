@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>Добавление новости на портал</h2>
-    <form action="/news/{{ $news->id }}" method="post">
+    <form action="{{ route('admin.news.update', $news->id) }}" method="post">
         @csrf
         @method('PUT')
         <div class="form-group">

@@ -3,7 +3,7 @@
 @section('content')
 
     <h2>Добавление новости на портал</h2>
-    <form action="{{ route('news.store') }}" method="post" class="margin-bottom-30">
+    <form action="{{ route('admin.news.store') }}" method="post" class="margin-bottom-30">
         @csrf
         <div class="form-group">
             <label for="exampleInputEmail1">Заголовок статьи</label>
@@ -35,7 +35,6 @@
                 @empty
                     <h2>Нет категорий</h2>
                     @endforelse
-                    <option value="123">err</option>
 
             </select>
         </div>
