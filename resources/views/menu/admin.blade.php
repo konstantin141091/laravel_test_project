@@ -7,10 +7,15 @@
                                     {{ request()->routeIs('admin.news.index') ? 'active' : '' }}
                                     {{ request()->routeIs('admin.news.show') ? 'active' : '' }}">
                 Новости Админ</a></li>
-        <li><a href="#">Категории</a></li>
+        <li><a href="{{ route('admin.category.index') }}" class="
+            {{ request()->routeIs('admin.category.index') ? 'active' : '' }}
+            {{ request()->routeIs('admin.category.show') ? 'active' : '' }}">
+                Категории Админ</a></li>
         <li><a href="{{ route('admin.profiles.index') }}" class="{{ request()->routeIs('admin.profiles.index') ? 'active' : '' }}">
                 Пользователи</a></li>
         <li><a href="{{ route('admin.news.create') }}" class="{{ request()->routeIs('admin.news.create') ? 'active' : '' }}">
                 Добавить статью</a></li>
+        <li><a href="{{ route('admin.category.create') }}" class="{{ request()->routeIs('admin.category.create') ? 'active' : '' }}">
+                Добавить категорию</a></li>
     </ul>
 </nav>

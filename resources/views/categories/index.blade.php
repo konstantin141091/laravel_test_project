@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.main')
 
 @section('content')
     <h2>Поиск новостей по категориям</h2>

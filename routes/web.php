@@ -35,6 +35,7 @@ Route::group([
     Route::get('/', 'IndexController@index')->name('index');
     Route::get('/news', 'NewsController@index')->name('news');
     Route::resource('news', 'NewsController');
+    Route::resource('category', 'CategoriesController');
     Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
 });
 
