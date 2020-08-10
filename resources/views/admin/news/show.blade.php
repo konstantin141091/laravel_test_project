@@ -24,15 +24,12 @@
         </div>
         <div class="flex">
             <a href="{{ route('admin.news.edit', $news->id) }}" class="btn btn-outline-success margin-bottom-15 margin-right-20">Редактировать</a>
-            <form action="{{ route('admin.news.destroy', $news->id) }}" method="post">
-                @method('DELETE')
-                @csrf
-
-                <button type="submit" class="btn btn-outline-danger">Удалить</button>
-            </form>
+            <a href="#" class="btn btn-outline-danger margin-bottom-15 news-delete" data-news-id="{{ $news->id }}">
+                Удалить</a>
 
         </div>
     </div>
+    <script src="{{ asset('js/newsDelete.js') }}"></script>
 
 @endsection
 

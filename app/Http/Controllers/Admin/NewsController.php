@@ -119,12 +119,22 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy(Request $request)
     {
-        if ($news->delete()) {
-            return redirect()->route('admin.news.index')->with('success', 'Новость успешно удалена');
+        $id = $request->id;
+
+        if (DB::table('news')->delete($id)) {
+            return response()->json(['status' => 'good']);
+        }else {
+            return response()->json(['status' => 'error']);
         }
 
-        return redirect()->route('admin.news.index')->with('error', 'Ошибка. Новость не удалена');
+
+//        вариант с синхроным удалением
+//        if ($news->delete()) {
+//            return redirect()->route('admin.news.index')->with('success', 'Новость успешно удалена');
+//        }
+//
+//        return redirect()->route('admin.news.index')->with('error', 'Ошибка. Новость не удалена');
     }
 }

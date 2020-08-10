@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 
 class AdminNewsTest extends TestCase
 {
@@ -16,6 +18,8 @@ class AdminNewsTest extends TestCase
     public function testIndex()
     {
 
+//        $user = DB::table('users')->where('is_admin', '=', true)->first();
+//        $this->assertAuthenticatedAs($user, $guard = null);
         $response = $this->get('admin/news');
 
         $response->assertRedirect('/login');

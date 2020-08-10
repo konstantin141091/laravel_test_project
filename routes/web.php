@@ -39,6 +39,7 @@ Route::group([
     Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
 });
 
+Route::resource('json', 'JsonController');
 
 
 

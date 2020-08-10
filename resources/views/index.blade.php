@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
     <div class="content__top margin-bottom-30">
         <div class="content__top__img"> <img src="https://placehold.it/770x410" alt="poster">
             <div class="content__top__text">

@@ -4,20 +4,24 @@
     <div class="content__bottom margin-bottom-30">
         <div class="row">
             @forelse($news as $item)
-                <div class="col-lg-4">
+                <div class="col-lg-4" id="{{ $item->id }}">
                     <div class="content__bottom__single">
                         <div class="content__bottom__single__img margin-bottom-30"> <img src="https://placehold.it/237x157" alt="poster"> </div>
                         <div class="content__bottom__text">
 
                             <span><a href="#">{{ $item->cat_title }}</a></span>
                             <div class="content__bottom__btn">
-                                <a href="{{ route('admin.news.edit', $item->id) }}" class="btn btn-outline-success margin-bottom-15">Редактировать</a>
-                                <form action="{{ route('admin.news.destroy', $item->id) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
+                                <a href="{{ route('admin.news.edit', $item->id) }}" class="btn btn-outline-success margin-bottom-15">
+                                    Редактировать</a>
+                                <a href="#" class="btn btn-outline-danger margin-bottom-15 news-delete" data-news-id="{{ $item->id }}">
+                                    Удалить</a>
 
-                                    <button type="submit" class="btn btn-outline-danger">Удалить</button>
-                                </form>
+{{--                                <form action="{{ route('admin.news.destroy', $item->id) }}" method="post">--}}
+{{--                                    @method('DELETE')--}}
+{{--                                    @csrf--}}
+
+{{--                                    <button type="submit" class="btn btn-outline-danger news-delete">Удалить</button>--}}
+{{--                                </form>--}}
 
                             </div>
                             <h3><a href="{{ route('admin.news.show', $item->id) }}">{{ $item->title }}</a></h3>
@@ -31,4 +35,5 @@
             @endforelse
         </div>
     </div>
+    <script src="{{ asset('js/newsDelete.js') }}"></script>
 @endsection
