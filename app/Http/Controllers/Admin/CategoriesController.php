@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::query()->get();
+        $categories = Category::query()->get();
 
 
         return view('admin.categories.index', [
@@ -43,7 +43,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $request->flash();
-        $this->validate($request, Categories::rules($request->title), [], Categories::attributesName());
+        $this->validate($request, Category::rules($request->title), [], Category::attributesName());
         $data = $request->except('_token');
         $name = $this->rusTranslit($data['title']);
         $data['name'] = $name;
@@ -63,8 +63,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $category = Categories::query()->find($id);
-        $news = Categories::query()->find($id)->news()->paginate(9);
+        $category = Category::query()->find($id);
+        $news = Category::query()->find($id)->news()->paginate(9);
 
         return view('admin.categories.show' , [
             'news' => $news,
@@ -93,10 +93,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categories $category)
+    public function update(Request $request, Category $category)
     {
         $request->flash();
-        $this->validate($request, Categories::rules($request->title), [], Categories::attributesName());
+        $this->validate($request, Category::rules($request->title), [], Category::attributesName());
         $data = $request->except('_token');
         $name = $this->rusTranslit($data['title']);
         $data['name'] = $name;

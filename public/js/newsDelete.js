@@ -868,7 +868,7 @@ btns.forEach(function (btn) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return fetch('/api/news', {
+              return fetch('/api/admin/news', {
                 method: 'delete',
                 headers: {
                   'Accept': 'application/json, text/plain, */*',

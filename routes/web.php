@@ -33,13 +33,11 @@ Route::group([
     'namespace' => 'Admin'
 ], function () {
     Route::get('/', 'IndexController@index')->name('index');
-    Route::get('/news', 'NewsController@index')->name('news');
     Route::resource('news', 'NewsController');
     Route::resource('category', 'CategoriesController');
     Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
 });
 
-Route::resource('json', 'JsonController');
 
 
 

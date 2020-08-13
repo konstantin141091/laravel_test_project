@@ -6,7 +6,7 @@ btns.forEach((btn) => {
 
     (
       async () => {
-        const response = await fetch('/api/news', {
+        const response = await fetch('/api/admin/news', {
           method: 'delete',
           headers: {
             'Accept': 'application/json, text/plain, */*',

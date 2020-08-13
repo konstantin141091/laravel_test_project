@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Categories;
+use App\Models\Category;
 
 class NewsSeeder extends Seeder
 {
@@ -18,7 +18,7 @@ class NewsSeeder extends Seeder
     private function getData() {
         $faker = Faker\Factory::create('ru_RU');
         $data = [];
-        $categoriesCount = Categories::query()->count('id');
+        $categoriesCount = Category::query()->count('id');
 
         for ($i = 0; $i < 60; $i++) {
             $data[] = [

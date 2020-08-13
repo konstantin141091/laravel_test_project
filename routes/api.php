@@ -19,4 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::delete('/news', 'Admin\NewsController@destroy');
+
+Route::delete('/admin/news', 'Admin\NewsController@destroy');
+
+

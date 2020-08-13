@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 
 class NewsTest extends TestCase
 {
@@ -13,6 +14,12 @@ class NewsTest extends TestCase
      *
      * @return void
      */
+
+    private function getNewsId() {
+        $news = DB::table('news')->select('id')->first();
+        return $news->id;
+    }
+
     public function testIndex()
     {
         $response = $this->get('/news');
@@ -22,9 +29,10 @@ class NewsTest extends TestCase
 
     public function testShow()
     {
-     $id = rand(1, 50);
+        $id = $this->getNewsId();
         $response = $this->get('/news/'.$id);
 
         $response->assertStatus(200);
     }
+
 }

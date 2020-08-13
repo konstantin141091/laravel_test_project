@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\Category;
+use Faker\Factory;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,60 +17,109 @@ class AdminNewsTest extends TestCase
      *
      * @return void
      */
+
+    private function getAdmin() {
+        return Auth::loginUsingId(1);
+    }
+
+    private function getNewsId() {
+        $news = DB::table('news')->select('id')->first();
+        return $news->id;
+    }
+
+    private function getData() {
+        $faker = Factory::create('ru_RU');
+        $data = [];
+        $categoriesCount = Category::query()->count('id');
+
+        $data[] = [
+                'title' => $faker->realText(rand(6, 20)),
+                'text' => $faker->realText(rand(11, 50)),
+                'category_id' => $faker->numberBetween(1,$categoriesCount)
+        ];
+
+
+        return $data[0];
+    }
+
     public function testIndex()
     {
-
-//        $user = DB::table('users')->where('is_admin', '=', true)->first();
-//        $this->assertAuthenticatedAs($user, $guard = null);
+        $this->getAdmin();
         $response = $this->get('admin/news');
 
-        $response->assertRedirect('/login');
+        $response->assertStatus(200);
     }
 
     public function testShow()
     {
-        $id = rand(1, 50);
+        $this->getAdmin();
+        $id = $this->getNewsId();
         $response = $this->get('admin/news/'.$id);
 
-        $response->assertRedirect('/login');
+        $response->assertStatus(200);
     }
 
     public function testCreate()
     {
+        $this->getAdmin();
         $response = $this->get('admin/news/create');
 
-        $response->assertRedirect('/login');
+        $response->assertStatus(200);
     }
 
     public function testEdit()
     {
-        $id = rand(1, 50);
+        $this->getAdmin();
+        $id = $this->getNewsId();
         $response = $this->get('admin/news/'.$id.'/edit');
 
-        $response->assertRedirect('/login');
+        $response->assertStatus(200);
     }
 
     public function testStore()
     {
-        $response = $this->post('admin/news');
+        $this->getAdmin();
+        $data = $this->getData();
+        $response = $this->get('admin/news/create');
+        $response = $this->call('post','admin/news', [
+            '_token' => csrf_token(),
+            'title' => $data['title'],
+            'text' => $data['text'],
+            'category_id' => $data['category_id']
+        ]);
 
-        $response->assertRedirect('/login');
+        $this->assertEquals(302, $response->getStatusCode());
+        $response->assertRedirect('/admin');
     }
 
     public function testUpdate()
     {
-        $id = rand(1, 50);
-        $response = $this->put('admin/news/'.$id);
+        $this->getAdmin();
+        $id = $this->getNewsId();
+        $data = $this->getData();
+        $response = $this->get('admin/news/'.$id.'/edit');
+        $response = $this->call('put', 'admin/news/'.$id, [
+            '_token' => csrf_token(),
+            'id' => $id,
+            'title' => $data['title'],
+            'text' => $data['text'],
+            'category_id' => $data['category_id']
+        ]);
 
-        $response->assertRedirect('/login');
+        $response->assertRedirect('/admin/news');
     }
 
     public function testDelete()
     {
-        $id = rand(1,20);
-//        $this->assertAuthenticatedAs('admin', $guard = null);
-        $response = $this->delete('admin/news/'.$id);
+        $this->getAdmin();
+        $id = $this->getNewsId();
 
-        $response->assertRedirect('/login');
+        $response = $this->deleteJson('api/admin/news', ['id' => $id]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'status' => 'good'
+            ]);
     }
 }

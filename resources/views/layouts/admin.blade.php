@@ -99,7 +99,6 @@
     </div>
 </header>
 <main>
-
     <div class="content">
         <div class="container">
             <div class="content__main">

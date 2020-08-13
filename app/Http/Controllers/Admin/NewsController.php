@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,8 +17,10 @@ class NewsController extends Controller
      */
     public function index()
     {
+
         $news = DB::table('news')->join('categories', 'news.category_id', '=', 'categories.id')
-            ->select('news.id as id', 'news.title as title', 'news.updated_at', 'categories.name as cat_name', 'categories.title as cat_title')
+            ->select('news.id as id', 'news.title as title', 'news.updated_at',
+                'news.category_id as category_id', 'categories.name as cat_name', 'categories.title as cat_title')
             ->orderByDesc('updated_at')->paginate(9);
 
         return view('admin.news.index', [
@@ -33,7 +35,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $categories = Categories::query()->get();
+        $categories = Category::query()->get();
 
         return view('admin.news.create', [
             'categories' => $categories
@@ -84,7 +86,7 @@ class NewsController extends Controller
     public function edit($id)
     {
         $news = DB::table('news')->find($id);
-        $categories = Categories::query()->get();
+        $categories = Category::query()->get();
 
         return view('admin.news.edit', [
             'news' => $news,
@@ -122,7 +124,6 @@ class NewsController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->id;
-
         if (DB::table('news')->delete($id)) {
             return response()->json(['status' => 'good']);
         }else {

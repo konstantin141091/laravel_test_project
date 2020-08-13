@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Categories;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +15,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Categories::query()->get();
+        $categories = Category::query()->get();
 
 
         return view('categories.index', [
@@ -30,7 +30,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        abort('404');
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort('404');
     }
 
     /**
@@ -52,8 +52,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $category = Categories::query()->find($id);
-        $news = Categories::query()->find($id)->news()->paginate(9);
+        $category = Category::query()->find($id);
+        $news = Category::query()->find($id)->news()->paginate(9);
 
         return view('categories.show' , [
             'news' => $news,
@@ -69,7 +69,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        abort('404');
     }
 
     /**
@@ -81,7 +81,7 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        abort('404');
     }
 
     /**
@@ -92,6 +92,6 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        abort('404');
     }
 }

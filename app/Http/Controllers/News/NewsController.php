@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\News;
 
-use App\Models\Categories;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
