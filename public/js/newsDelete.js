@@ -858,11 +858,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var btns = document.querySelectorAll('.news-delete');
 btns.forEach(function (btn) {
   btn.addEventListener('click', function (event) {
-    event.preventDefault();
+    var win = document.getElementById('win1');
     var news_id = btn.getAttribute('data-news-id');
 
     _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var response, answer, news;
+      var response, answer, news, _message, _close;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -889,16 +890,22 @@ btns.forEach(function (btn) {
 
               if (answer.status === 'good') {
                 news = document.getElementById(news_id);
+                _message = document.getElementById('win1_text');
+                _close = document.getElementById('win1_close');
 
                 if (news) {
-                  alert('Новость удалена');
+                  _message.textContent = "Новость успешно удалена";
+
+                  _close.classList.remove('no-visible');
+
                   news.remove();
                 } else {
                   alert('Новость удалена');
                   window.location = 'http://laravel.local/admin/news';
                 }
               } else {
-                alert('что-то пошло не так');
+                message.textContent = "Не удалось удалить новость";
+                close.classList.remove('no-visible');
               }
 
             case 7:

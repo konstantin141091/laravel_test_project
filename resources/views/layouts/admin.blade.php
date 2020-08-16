@@ -10,9 +10,63 @@
     <script src="https://kit.fontawesome.com/bf05fd6411.js"></script>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <title>Админка</title>
+    <style>
+        /* слой затемнения */
+        .dm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.65);
+            display: none;
+            overflow: auto;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+        /* активируем слой затемнения и модальное окно */
+        .dm-overlay:target {
+            display: block;
+            /* анимация и время задержки */
+            -webkit-animation: fade .6s;
+            -moz-animation: fade .6s;
+            animation: fade .6s;
+        }
+        /* блочная таблица */
+        .dm-table {
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+        /* ячейка блочной таблицы */
+        .dm-cell {
+            display: table-cell;
+            padding: 0 1em;
+            vertical-align: middle;
+            text-align: center;
+        }
+        /* модальный блок */
+        .dm-modal {
+            display: inline-block;
+            padding: 20px;
+            /* максимально возможная ширина */
+            max-width: 50em;
+            background: #607d8b;
+            /* внешняя тень блока */
+            -webkit-box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.22), 0px 19px 60px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.22), 0px 19px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.22), 0px 19px 60px rgba(0, 0, 0, 0.3);
+            color: #cfd8dc;
+            text-align: left;
+            /* анимация и время задержки */
+            -webkit-animation: fade .8s;
+            -moz-animation: fade .8s;
+            animation: fade .8s;
+        }
+    </style>
 </head>
 
 <body>
+
 <header class="header">
     <div class="header__main">
         <div class="header__top">
@@ -99,6 +153,17 @@
     </div>
 </header>
 <main>
+    <div class="dm-overlay" id="win1">
+        <div class="dm-table">
+            <div class="dm-cell">
+                <div class="dm-modal">
+                    <a href="#close" class="close no-visible" id="win1_close">X</a>
+                    <p id="win1_text">Ушел запрос на удаление</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="content">
         <div class="container">
             <div class="content__main">

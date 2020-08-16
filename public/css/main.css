@@ -77,6 +77,10 @@
   width: 100%;
 }
 
+.no-visible {
+  display: none;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-weight: normal;

@@ -1,7 +1,9 @@
 let btns = document.querySelectorAll('.news-delete');
 btns.forEach((btn) => {
   btn.addEventListener('click', (event) => {
-    event.preventDefault();
+
+    let win = document.getElementById('win1');
+
     let news_id = btn.getAttribute('data-news-id');
 
     (
@@ -19,15 +21,19 @@ btns.forEach((btn) => {
         const answer = await response.json();
         if (answer.status === 'good') {
           let news = document.getElementById(news_id);
+          let message = document.getElementById('win1_text');
+          let close = document.getElementById('win1_close');
           if (news) {
-            alert('Новость удалена');
+            message.textContent = "Новость успешно удалена";
+            close.classList.remove('no-visible');
             news.remove();
           } else {
             alert('Новость удалена');
             window.location = 'http://laravel.local/admin/news';
           }
         } else {
-          alert('что-то пошло не так');
+          message.textContent = "Не удалось удалить новость";
+          close.classList.remove('no-visible');
         }
       }
     )();
