@@ -122,7 +122,4 @@ class CategoriesController extends Controller
         DB::table('categories')->where('id', '=', $id)->delete();
         return redirect()->route('admin.category.index')->with('success', 'Категория успешно удалена');
     }
-
-
-
 }
