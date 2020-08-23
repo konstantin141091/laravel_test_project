@@ -1,24 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.main')
 
 @section('content')
-    <h2>Зарегестрированные пользователи портала</h2>
+    <h2>Личный кабинет пользователя</h2>
     <div class="content__bottom margin-bottom-30">
         <div class="row">
-            <ul class="list-group">
-            @forelse($users as $item)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ $item->name }}
-                        <span class="badge badge-primary badge-pill">14</span>
-                        <a href="{{ route('admin.profiles.edit', $item) }}">Редактировать</a>
-                    </li>
-            @empty
-                <p>Пользователей нет</p>
-            @endforelse
+            <ul class="ul">
+                <li><p><span>Имя: </span>{{ $user->name }}</p></li>
+                <li><p><span>Email: </span>{{ $user->email }}</p></li>
+                <li><p><span>Дата регистрации: </span>{{ $user->created_at }}</p></li>
             </ul>
-            <div class="container flex justify-content-center margin-top-30">
-{{--                {{ $users->links() }}--}}
-            </div>
         </div>
     </div>
 @endsection
+
 

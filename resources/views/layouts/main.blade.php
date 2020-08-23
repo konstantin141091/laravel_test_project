@@ -93,12 +93,14 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right dropdown__position" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item header__drop" href="{{ route('profile.index') }}">
+                                                Личный кабинет
+                                            </a>
                                             <a class="dropdown-item header__drop" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                 Выйти
                                             </a>
-
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                 @csrf
                                             </form>

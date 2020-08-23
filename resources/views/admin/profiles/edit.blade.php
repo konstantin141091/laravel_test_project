@@ -63,8 +63,16 @@
                 {{ $message }}
             </div>
             @enderror
-            <input type="checkbox" class="form-check-input" name="is_admin">
-            <label class="form-check-label">Сделать админом</label>
+            <input type="checkbox" class="form-check-input" name="is_admin"
+                @if($user->is_admin)
+                checked
+                @endif>
+            <label class="form-check-label">Администратор</label>
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" name="old_password">
+            <label class="form-check-label">Оставить старый пароль</label>
         </div>
 
         <button type="submit" class="btn btn-primary">Редактировать</button>

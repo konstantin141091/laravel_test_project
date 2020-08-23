@@ -19,24 +19,37 @@ Route::resource('news', 'News\NewsController')->only(['index', 'show']);
 Route::resource('category', 'Categories\CategoriesController')->only(['index', 'show']);
 
 // auth
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
-
-//admin
 Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-    'middleware' => ['auth', 'is_admin'],
-    'namespace' => 'Admin'
-], function () {
-    Route::get('/', 'IndexController@index')->name('index');
-    Route::resource('news', 'NewsController');
-    Route::resource('category', 'CategoriesController');
-    Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
+    'namespace' => 'Auth'
+], function() {
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login');
+    Route::post('logout', 'LoginController@logout')->name('logout');
+    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'RegisterController@register');
 });
+
+
+
+Route::group([
+    'middleware' => 'auth'
+], function () {
+    Route::get('profile', 'Profiles\ProfilesController@index')->name('profile.index');
+
+    //admin
+    Route::group([
+        'prefix' => 'admin',
+        'as' => 'admin.',
+        'middleware' => ['is_admin'],
+        'namespace' => 'Admin'
+    ], function () {
+        Route::get('/', 'IndexController@index')->name('index');
+        Route::resource('news', 'NewsController');
+        Route::resource('category', 'CategoriesController');
+        Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
+    });
+});
+
 
 
 

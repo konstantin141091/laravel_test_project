@@ -19,7 +19,7 @@ class ProfilesController extends Controller
     {
 
         $users = User::query()->get();
-        return view('profiles.index', [
+        return view('admin.profiles.index', [
             'users' => $users
         ]);
     }
@@ -66,7 +66,7 @@ class ProfilesController extends Controller
     {
         $user = User::query()->find($id);
 
-        return view('profiles.edit', [
+        return view('admin.profiles.edit', [
             'user' => $user
         ]);
     }
@@ -85,6 +85,32 @@ class ProfilesController extends Controller
         $this->validate($request, $this->validateRules($id), [], $this->attributesName());
         $user = User::query()->find($id);
 
+//        без пароля
+        if ($request->old_password) {
+            $user->fill([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+
+            if ($request->is_admin) {
+                $user->fill([
+                    'is_admin' => true
+                ]);
+            } else {
+                $user->fill([
+                    'is_admin' => false
+                ]);
+            }
+
+            if ($user->save()) {
+                return redirect()->back()->with('success', 'Данные успешно обновлены');
+            } else {
+                return redirect()->back()->with('error', 'Что-то пошло не так. Не удалось обновить профиль');
+            }
+
+        }
+
+        //        с новым паролем
         if (Hash::check($request->password, $user->password)) {
             $user->fill([
                 'name' => $request->name,
@@ -96,6 +122,10 @@ class ProfilesController extends Controller
                 $user->fill([
                     'is_admin' => true
                 ]);
+            } else {
+                $user->fill([
+                    'is_admin' => false
+                ]);
             }
 
             if ($user->save()) {
@@ -104,7 +134,8 @@ class ProfilesController extends Controller
                 return redirect()->back()->with('error', 'Что-то пошло не так. Не удалось обновить профиль');
             }
 
-        } else {
+        }
+        else {
             return redirect()->back()->with('error', 'Неверный пароль или email');
         }
     }
@@ -120,13 +151,15 @@ class ProfilesController extends Controller
 //        //
 //    }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     private function validateRules($id) {
-
         return [
             'name' => 'required|min:2',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'required',
-            'new_password' => 'required|min:3'
+
         ];
     }
 
