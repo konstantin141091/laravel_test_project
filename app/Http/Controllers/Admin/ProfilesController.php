@@ -18,7 +18,7 @@ class ProfilesController extends Controller
     public function index()
     {
 
-        $users = User::query()->get();
+        $users = User::query()->paginate(15);
         return view('admin.profiles.index', [
             'users' => $users
         ]);
@@ -103,7 +103,7 @@ class ProfilesController extends Controller
             }
 
             if ($user->save()) {
-                return redirect()->back()->with('success', 'Данные успешно обновлены');
+                return redirect()->route('admin.profiles.index')->with('success', 'Данные успешно обновлены');
             } else {
                 return redirect()->back()->with('error', 'Что-то пошло не так. Не удалось обновить профиль');
             }
@@ -129,7 +129,7 @@ class ProfilesController extends Controller
             }
 
             if ($user->save()) {
-                return redirect()->back()->with('success', 'Данные успешно обновлены');
+                return redirect()->route('admin.profiles.index')->with('success', 'Данные успешно обновлены');
             } else {
                 return redirect()->back()->with('error', 'Что-то пошло не так. Не удалось обновить профиль');
             }

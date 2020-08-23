@@ -29,17 +29,15 @@ class AdminNewsTest extends TestCase
 
     private function getData() {
         $faker = Factory::create('ru_RU');
-        $data = [];
         $categoriesCount = Category::query()->count('id');
 
-        $data[] = [
-                'title' => $faker->realText(rand(6, 20)),
-                'text' => $faker->realText(rand(11, 50)),
+        $data = [
+//                'title' => $faker->realText(20),
+//                'text' => $faker->realText(50),
                 'category_id' => $faker->numberBetween(1,$categoriesCount)
+
         ];
-
-
-        return $data[0];
+        return $data;
     }
 
     public function testIndex()
@@ -83,13 +81,14 @@ class AdminNewsTest extends TestCase
         $response = $this->get('admin/news/create');
         $response = $this->call('post','admin/news', [
             '_token' => csrf_token(),
-            'title' => $data['title'],
-            'text' => $data['text'],
+            'title' => 'test'. rand(1,2000),
+            'text' => 'test'. rand(1,2000),
             'category_id' => $data['category_id']
         ]);
 
         $this->assertEquals(302, $response->getStatusCode());
         $response->assertRedirect('/admin');
+        $response->assertSessionHas('success', 'Новость успешно добавлена');
     }
 
     public function testUpdate()
@@ -101,12 +100,13 @@ class AdminNewsTest extends TestCase
         $response = $this->call('put', 'admin/news/'.$id, [
             '_token' => csrf_token(),
             'id' => $id,
-            'title' => $data['title'],
-            'text' => $data['text'],
+            'title' => 'test'. rand(1,2000),
+            'text' => 'test'. rand(1,2000),
             'category_id' => $data['category_id']
         ]);
-
+        $this->assertEquals(302, $response->getStatusCode());
         $response->assertRedirect('/admin/news');
+        $response->assertSessionHas('success', 'Новость успешно обновлена');
     }
 
     public function testDelete()

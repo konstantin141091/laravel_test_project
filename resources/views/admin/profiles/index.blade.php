@@ -24,7 +24,7 @@
             @endforelse
             </ul>
             <div class="container flex justify-content-center margin-top-30">
-{{--                {{ $users->links() }}--}}
+                {{ $users->links() }}
             </div>
         </div>
     </div>
