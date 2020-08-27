@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'is_admin',
+        'name', 'email', 'password', 'is_admin', 'last_login',
     ];
 
     /**
@@ -35,5 +35,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
+
+    public function loginVK(array $data) {
+        $user = self::where('email', $data['email'])->first();
+        if($user) {
+            \Auth::loginUsingId($user->id);
+            return $user;
+        }
+
+        return false;
+    }
 }

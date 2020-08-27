@@ -17,6 +17,10 @@ Route::get('/', 'IndexController@index')->name('index');
 Route::resource('news', 'News\NewsController')->only(['index', 'show']);
 //category
 Route::resource('category', 'Categories\CategoriesController')->only(['index', 'show']);
+//parser
+Route::get('/parser', 'Parser\ParserController@index')->name('parser');
+Route::get('/parser/save', 'Parser\ParserController@save')->name('parser.save');
+
 
 // auth
 Route::group([
@@ -27,7 +31,12 @@ Route::group([
     Route::post('logout', 'LoginController@logout')->name('logout');
     Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'RegisterController@register');
+    Route::get('/auth/vk', 'SocialController@login')->name('vk.login');
+    Route::get('/auth/vk/callback', 'SocialController@callback')->name('vk.callback');
+    Route::get('/auth/fb', 'SocialController@loginVK')->name('vk.login');
+    Route::get('/auth/fb/callback', 'SocialController@callbackVK')->name('vk.callback');
 });
+
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\News;
 
+use App\Events\NewsEvent;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +67,7 @@ class NewsController extends Controller
         $news = DB::table('news')->join('categories', 'news.category_id', '=', 'categories.id')
             ->select('news.*', 'categories.name as cat_name', 'categories.title as cat_title')
             ->where('news.id', '=', $id)->get();
+        event(new NewsEvent($news[0]));
         return view('news.show', [
             'news' => $news[0]
         ]);

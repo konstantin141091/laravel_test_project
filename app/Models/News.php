@@ -9,7 +9,7 @@ class News extends Model
 //    public $timestamps = false;
     protected $table = 'news';
     protected $primaryKey = 'id';
-    protected $fillable = ['title', 'text', 'category_id'];
+    protected $fillable = ['title', 'text', 'category_id', 'shows'];
 
     public function category() {
         return $this->belongsTo(Category::class, 'category_id')->first();

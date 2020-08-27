@@ -70,6 +70,8 @@
                                 <li><a href="{{ route('category.index') }}" class="
                                     {{ request()->routeIs('category.index') ? 'active' : '' }}
                                     {{ request()->routeIs('category.show') ? 'active' : '' }}">Категории</a></li>
+                                <li><a href="{{ route('parser') }}" class="{{ request()->routeIs('parser') ? 'active' : '' }}">Парсер</a></li>
+
                             </ul>
                         </nav>
                     </div>
@@ -121,6 +123,22 @@
             <div class="content__main">
                 <div class="row margin-top-30">
                     <div class="col-lg-8">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>{{ session('success') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>{{ session('error') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         @yield('content')
                     </div>
                     <div class="col-lg-4">

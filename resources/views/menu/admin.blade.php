@@ -11,6 +11,7 @@
             {{ request()->routeIs('admin.category.index') ? 'active' : '' }}
             {{ request()->routeIs('admin.category.show') ? 'active' : '' }}">
                 Категории Админ</a></li>
+        <li><a href="{{ route('parser') }}" class="{{ request()->routeIs('parser') ? 'active' : '' }}">Парсер</a></li>
         <li><a href="{{ route('admin.profiles.index') }}" class="{{ request()->routeIs('admin.profiles.index') ? 'active' : '' }}">
                 Пользователи</a></li>
         <li><a href="{{ route('admin.news.create') }}" class="{{ request()->routeIs('admin.news.create') ? 'active' : '' }}">

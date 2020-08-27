@@ -19,7 +19,8 @@ class IsAdmin
 //        if (is_null(\Auth::user())) {
 //            return redirect()->route('index');
 //        }
-        if (!\Auth::user()->is_admin) {
+        $user = \Auth::user();
+        if ($user->is_admin === false) {
             return redirect()->route('index');
         }
         return $next($request);

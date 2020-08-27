@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\NewsEvent;
+use App\Listeners\LoginListener;
+use App\Listeners\NewsListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -17,6 +20,17 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        'Illuminate\Auth\Events\Login' => [
+            LoginListener::class,
+        ],
+        NewsEvent::class => [
+          NewsListener::class,
+        ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+
+            'SocialiteProviders\\VKontakte\\VKontakteExtendSocialite@handle',
+            'SocialiteProviders\\Facebook\\FacebookExtendSocialite@handle',
         ],
     ];
 
