@@ -7,6 +7,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -19,10 +20,9 @@ class NewsController extends Controller
     {
 
         $news = DB::table('news')->join('categories', 'news.category_id', '=', 'categories.id')
-            ->select('news.id as id', 'news.title as title', 'news.updated_at',
+            ->select('news.id as id', 'news.title as title', 'news.updated_at', 'news.img',
                 'news.category_id as category_id', 'categories.name as cat_name', 'categories.title as cat_title')
             ->orderByDesc('updated_at')->paginate(9);
-
         return view('admin.news.index', [
             'news' => $news
         ]);
@@ -52,7 +52,15 @@ class NewsController extends Controller
     {
         $request->flash();
         $this->validate($request, News::rules($request->title), [], News::attributesName());
-        $data = $request->except('_token');
+        $data = $request->except(['img', '_token']);
+
+        if ($request->hasFile('img')) {
+            $img = $request->file('img');
+            $upload = $img->store('news');
+            if ($upload) {
+                $data['img'] = $upload;
+            }
+        }
 
         if (DB::table('news')->insert($data)) {
             return redirect()->route('admin.index')->with('success', 'Новость успешно добавлена');
@@ -72,6 +80,9 @@ class NewsController extends Controller
         $news = DB::table('news')->join('categories', 'news.category_id', '=', 'categories.id')
             ->select('news.*', 'categories.name as cat_name', 'categories.title as cat_title')
             ->where('news.id', '=', $id)->get();
+
+//        $contents = Storage::get($news[0]->img);
+//        dd($contents);
         return view('admin.news.show', [
             'news' => $news[0]
         ]);

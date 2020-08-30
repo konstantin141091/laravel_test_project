@@ -2,6 +2,7 @@
 
 @section('content')
     <h2>Поиск новостей по категориям</h2>
+    <a href="{{ route('admin.category.create') }}">Добавить категорию</a>
     <div class="content__bottom margin-bottom-30">
         <div class="row">
             @forelse($categories as $item)

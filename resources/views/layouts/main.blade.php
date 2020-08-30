@@ -70,7 +70,7 @@
                                 <li><a href="{{ route('category.index') }}" class="
                                     {{ request()->routeIs('category.index') ? 'active' : '' }}
                                     {{ request()->routeIs('category.show') ? 'active' : '' }}">Категории</a></li>
-                                <li><a href="{{ route('parser') }}" class="{{ request()->routeIs('parser') ? 'active' : '' }}">Парсер</a></li>
+                                <li><a href="{{ route('parser.all') }}" class="{{ request()->routeIs('parser.all') ? 'active' : '' }}">Парсер Новости</a></li>
 
                             </ul>
                         </nav>

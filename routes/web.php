@@ -19,7 +19,8 @@ Route::resource('news', 'News\NewsController')->only(['index', 'show']);
 Route::resource('category', 'Categories\CategoriesController')->only(['index', 'show']);
 //parser
 Route::get('/parser', 'Parser\ParserController@index')->name('parser');
-Route::get('/parser/save', 'Parser\ParserController@save')->name('parser.save');
+Route::post('/parser/save', 'Parser\ParserController@save')->name('parser.save');
+Route::get('/parser/all', 'Parser\ParserController@all')->name('parser.all');
 
 
 // auth
@@ -55,7 +56,10 @@ Route::group([
         Route::get('/', 'IndexController@index')->name('index');
         Route::resource('news', 'NewsController');
         Route::resource('category', 'CategoriesController');
-        Route::resource('profiles', 'ProfilesController')->except('show', 'create', 'destroy', 'store');
+        Route::resource('profiles', 'ProfilesController')
+            ->except('show', 'create', 'destroy', 'store');
+        Route::resource('resources', 'ParseResourcesController')->except('show');
+
     });
 });
 

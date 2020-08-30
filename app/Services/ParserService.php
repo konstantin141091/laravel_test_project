@@ -3,6 +3,8 @@
 
 namespace App\Services;
 
+use App\Models\ParseNews;
+use Illuminate\Support\Facades\Storage;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 class ParserService
 {
@@ -28,5 +30,14 @@ class ParserService
         ]);
 
         return $news;
+    }
+
+    public function saveData(): void
+    {
+        $data = $this->getData();
+        $json = json_encode($data);
+
+        $path = mb_strimwidth($this->url, 8, 30);
+        Storage::disk('local')->put($path . '.txt', $json);
     }
 }

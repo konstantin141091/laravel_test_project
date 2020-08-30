@@ -17,8 +17,6 @@ class CreateNewsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('title')->comment('Заголовок статьи');
             $table->text('text')->comment('Текст статьи');
-//            $table->string('image')->default(null)->comment('Название файла каритинки');
-//            $table->smallInteger('category_id')->unsigned()->comment('Id категории');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

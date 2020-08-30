@@ -3,7 +3,7 @@
 @section('content')
 
     <h2>Добавление новости на портал</h2>
-    <form action="{{ route('admin.news.store') }}" method="post" class="margin-bottom-30">
+    <form action="{{ route('admin.news.store') }}" method="post" class="margin-bottom-30" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="exampleInputEmail1">Заголовок статьи</label>
@@ -48,9 +48,29 @@
                     @endforeach
                 </div>
             @endif
-            <textarea class="form-control" name="text" rows="10">{{ old('text') }}</textarea>
+            <textarea class="form-control" name="text" rows="10" id="form_text">{{ old('text') }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Изображение</label>
+            @if($errors->has('img'))
+                <div class="alert alert-danger" role="alert">
+                    @foreach($errors->get('img') as $err)
+                        {{ $err }}
+                    @endforeach
+                </div>
+            @endif
+            <input type="file" class="form-control" name="img" placeholder="Изображение" value="{{ old('img') }}">
+{{--            <small class="form-text text-muted">Минимум 10 символов. Максимум 75 символов</small>--}}
         </div>
 
         <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
 @endsection
+
+@push('js')
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('form_text');
+    </script>
+@endpush

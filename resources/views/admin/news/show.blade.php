@@ -3,7 +3,12 @@
 @section('content')
 
     <div class="news margin-bottom-30">
-        <div class="news__img"> <img src="https://placehold.it/770x410" alt="poster">
+        <div class="news__img">
+            @if($news->img)
+                <img src="{{ asset('storage/'.$news->img) }}" alt="poster">
+            @else
+                <img src="https://placehold.it/770x410" alt="poster">
+            @endif
 
         </div>
 
@@ -11,7 +16,7 @@
             <h3>{{ $news->title }}</h3>
         </div>
         <div class="news__text">
-            <p align="justify">{{ $news->text }}</p>
+            <p align="justify">{!! $news->text !!}</p>
         </div>
         <div class="news__links flex">
             <h3 class="margin-right-20">Share:</h3>

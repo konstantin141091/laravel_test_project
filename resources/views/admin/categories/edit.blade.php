@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>Добавление новости на портал</h2>
+    <h2>Изменить категорию</h2>
     <form action="{{ route('admin.category.update', $category->id) }}" method="post">
         @csrf
         @method('PUT')

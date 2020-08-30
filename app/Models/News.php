@@ -9,7 +9,7 @@ class News extends Model
 //    public $timestamps = false;
     protected $table = 'news';
     protected $primaryKey = 'id';
-    protected $fillable = ['title', 'text', 'category_id', 'shows'];
+    protected $fillable = ['title', 'text', 'category_id', 'shows', 'img'];
 
     public function category() {
         return $this->belongsTo(Category::class, 'category_id')->first();
@@ -20,7 +20,8 @@ class News extends Model
         return [
             'title' => 'required|min:2|max:40|unique:news,title,'.$title,
             'text' => 'required|min:2|max:4000',
-            'category_id' => "required|exists:{$category},id"
+            'category_id' => "required|exists:{$category},id",
+            'img' => 'image:png,jpg|nullable'
         ];
     }
 
@@ -29,7 +30,8 @@ class News extends Model
         return [
             'category_id' => 'Категория новости',
             'text'        => 'Текст новости',
-            'title'       => 'Заголовок новости'
+            'title'       => 'Заголовок новости',
+            'img'         => 'Изображение'
         ];
     }
 }

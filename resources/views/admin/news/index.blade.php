@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content__bottom margin-bottom-30">
+        <a href="{{ route('admin.news.create') }}">Добавить статью</a>
         <div class="row">
             @forelse($news as $item)
                 <div class="col-lg-4" id="{{ $item->id }}">
